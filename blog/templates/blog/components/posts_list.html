@@ -1,14 +1,31 @@
-<ul class="list-unstyled mb-0">
-{% for post in posts %}
-<li>
-  <a href={{post.url}}>
-<h1>{{post.title}}</h1>
+{% load wagtailcore_tags wagtailimages_tags %}
 
-<h1>{{post.intro}}</h1>
-<p>{{post.date}}</p>
-  </a>
-</li>
-{% empty %}
-'No posts yet'
-{% endfor %}
-</ul>
+<section class="page-section" id="services">
+  <div class="container">
+      <div class="text-center">
+          <h2 class="section-heading text-uppercase">Blog</h2>
+          <h3 class="section-subheading text-muted">Few post for our Blog to make you invite to our concept of creating sites.</h3>
+      </div>
+      <div class="row text-center">
+          {% for post in posts %}
+          <div class="col-md-4">
+            <div class="card" >
+              {% if post.header_image %}
+                {% image post.header_image original as header_image %}
+                <img src="{{ header_image.url }}" class="card-img-top">
+              {% endif %}
+
+              <div class="card-body">
+               
+                <h5 class="card-title">{{post.title}}</h5>
+                <p class="card-text">{{post.intro}}</p>
+                <a href={{post.url}} class="btn btn-primary">More</a>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+        'No posts yet'
+        {% endfor %}
+      </div>
+  </div>
+</section>

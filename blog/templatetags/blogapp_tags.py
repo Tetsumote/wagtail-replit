@@ -6,7 +6,7 @@ register = Library()
 @register.inclusion_tag('blog/components/posts_list.html',
 takes_context=True)
 def posts_list(context):
-  posts = BlogPage.objects.all()
+  posts = BlogPage.objects.all()[:3]
   return {
   'request': context['request'],
   'posts': posts
