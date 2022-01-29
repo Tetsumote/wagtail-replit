@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 {% load blogapp_tags %}
 {% block body_class %}template-homepage{% endblock %}
 
@@ -16,7 +16,17 @@
         </div>
     </header>
     {% posts_list %}
-    {{ page.body|richtext }}
-    Go to our<a href="/blog"> Blog<a>
-    Go to about<a href="/about"> About<a>
+ 
+    <hr>
+    <h1>To do create styles</h1>
+    {% for advert_placement in page.aboutUs_placements.all %}
+      <p>{{ advert_placement.aboutUs.title }}</p>
+      <p>{{ advert_placement.aboutUs.body|richtext }}</p>
+      
+      {% if advert_placement.aboutUs.image %}
+        {% image advert_placement.aboutUs.image fill-320x240 %}       
+      {% endif %}
+
+  {% endfor %}
+
 {% endblock %}

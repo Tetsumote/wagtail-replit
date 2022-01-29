@@ -1,0 +1,12 @@
+{% load static wagtailcore_tags %}
+{% for about in aboutUs %}
+    <p>
+      {{ about.title }}
+    </p>
+    <p>
+      {{ about.body|richtext }}
+    </p>
+  
+
+
+{% endfor %}
