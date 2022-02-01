@@ -21,6 +21,7 @@ class HomePage(Page):
 
 @register_snippet
 class AboutUs(models.Model):
+  date = models.DateField("About date")
   title = models.CharField(max_length=255)
   body = RichTextField(blank=True)
   image = models.ForeignKey(
@@ -29,6 +30,7 @@ class AboutUs(models.Model):
 
   panels = [
     ImageChooserPanel('image'),
+    FieldPanel('date'),
     FieldPanel('title'),
     FieldPanel('body'),
   ]

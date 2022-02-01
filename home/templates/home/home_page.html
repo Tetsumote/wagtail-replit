@@ -1,32 +1,63 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
-{% load blogapp_tags %}
-{% block body_class %}template-homepage{% endblock %}
+{% load wagtailcore_tags wagtailimages_tags blogapp_tags %}
+
+{% block body_class %}Homepage{% endblock %}
 
 
 {% block content %}
 
-    <!-- Masthead-->
-    <header class="masthead">
-        <div class="container">
-            <div class="masthead-subheading">Welcome To Our Studio!</div>
-            <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
-        </div>
-    </header>
-    {% posts_list %}
+  <!-- Masthead -->
+  <header class="masthead">
+      <div class="container">
+          <div class="masthead-subheading">Welcome To Our Studio!</div>
+          <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
+          <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+      </div>
+  </header>
+
+  <!-- Post Lists -->
+  {% posts_list %}
  
-    <hr>
-    <h1>To do create styles</h1>
-    {% for advert_placement in page.aboutUs_placements.all %}
-      <p>{{ advert_placement.aboutUs.title }}</p>
-      <p>{{ advert_placement.aboutUs.body|richtext }}</p>
-      
-      {% if advert_placement.aboutUs.image %}
-        {% image advert_placement.aboutUs.image fill-320x240 %}       
-      {% endif %}
 
-  {% endfor %}
+  <!-- About-->
+  <section class="page-section" id="about">
+    <div class="container">
+      <div class="text-center">
+          <h2 class="section-heading text-uppercase">About</h2>
+          <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+      </div>
+      <ul class="timeline">
 
+      {% for advert_placement in page.aboutUs_placements.all %}
+        {% if forloop.counter|divisibleby:2 %}
+        <li class="timeline-inverted">
+        {% else %}
+        <li>
+        {% endif %}        
+          <div class="timeline-image">
+            {% if advert_placement.aboutUs.image %}
+            {% image  advert_placement.aboutUs.image fill-320x320 as image_webp %}   
+            <img class="rounded-circle img-fluid" src="{{ image_webp.url }}" alt="..." />    
+            {% endif %}
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+                <h4>{{ advert_placement.aboutUs.date|date:"Y" }}</h4>
+                <h4 class="subheading">{{ advert_placement.aboutUs.title }}</h4>
+            </div>
+            <div class="timeline-body"><p class="text-muted">{{ advert_placement.aboutUs.body|richtext|truncatewords:25  }}</p></div>
+            <a href="/about" class="btn btn-primary mt-2">More</a>
+          </div>
+        </li>
+      {% endfor %}
+        <li class="timeline-inverted">
+          <div class="timeline-image">
+            <h4>Be Part<br />Of Our<br />Story!</h4>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+        
 {% endblock %}
